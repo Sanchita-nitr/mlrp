@@ -71,3 +71,36 @@ GOOGLE_MAPS_API_KEY="your_google_maps_api_key_here"
 
 # The URL for the Clogged Data Service
 # CLOGGED_ROADS_URL="http://127.0.0.1:5050/api/cordinates"
+
+## 🚀 Quick Start: Deployment is the Goal
+
+### 🧠 Prerequisites
+- Python 3.8+
+- Trained model: `best_flood_model.pth`
+- Google Maps Directions API Key
+
+---
+
+### ⚙️ Setup Order: **Synergy First!**
+
+#### 1️⃣ Clone the Repo & Setup Virtual Environment
+```bash
+git clone [repository-link]
+cd JalTantra
+python -m venv venv
+source venv/bin/activate
+
+#### 2️⃣ Install Dependencies
+
+- **Core deep learning stack:**  
+  `pip install torch torchvision torchaudio`
+
+- **FastAPI + async networking + env setup:**  
+  `pip install fastapi uvicorn[standard] httpx polyline python-dotenv`
+
+- **Geospatial and image handling libs:**  
+  `pip install pillow shapely`
+
+4️⃣ Start AI Prediction API (Port 8080)
+python api.py
+# AI Service: http://127.0.0.1:8080

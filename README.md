@@ -80,26 +80,76 @@ GOOGLE_MAPS_API_KEY="your_google_maps_api_key_here"
 - Google Maps Directions API Key
 
 ---
-
-### ⚙️ Setup Order: **Synergy First!**
-1️⃣ Clone the Repo & Setup Virtual Environment
-```bash
+🚀 Quick Start: Deployment is the Goal
+Prerequisites
+Python 3.8+
+Trained model: best_flood_model.pth
+Google Maps Directions API Key
+Setup Order: Synergy First!
+Clone the Repo & Setup Venv
 git clone [repository-link]
 cd JalTantra
 python -m venv venv
 source venv/bin/activate
-
- 2️⃣ Install Dependencies
-
-- **Core deep learning stack:**  
-  `pip install torch torchvision torchaudio`
-
-- **FastAPI + async networking + env setup:**  
-  `pip install fastapi uvicorn[standard] httpx polyline python-dotenv`
-
-- **Geospatial and image handling libs:**  
-  `pip install pillow shapely`
-
-4️⃣ Start AI Prediction API (Port 8080)
+Install Dependencies
+pip install torch torchvision torchaudio
+pip install fastapi uvicorn[standard] httpx polyline python-dotenv
+pip install pillow shapely
+Configure .env
+GOOGLE_MAPS_API_KEY="YOUR_API_KEY_HERE"
+Start AI Prediction API (Port 8080)
 python api.py
 # AI Service: http://127.0.0.1:8080
+Start Safe Route API (Port 8000)
+python main.py
+# Route Service: http://127.0.0.1:8000
+# Docs: http://127.0.0.1:8000/docs
+📊 System Architecture
+┌─────────────────┐
+│  AI Inference   │  FastAPI / PyTorch
+│  (Port 8080)    │  - Flood Severity Prediction
+└────────┬────────┘
+         │
+         ▼
+┌────────────────────────┐ 
+│  Data Integrator (5050)│  ⟵ CRITICAL MISSING SERVICE
+│  - Stores flood coords │
+└────────┬───────────────┘
+         │
+         ▼
+┌─────────────────┐    
+│ Safe Route API  │  FastAPI / Shapely
+│  (Port 8000)    │  - Geospatial Route Check 
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Google Maps API│
+└─────────────────┘
+🎯 Core Capabilities
+1. Flood Severity API
+Upload an image → get flood risk instantly.
+Classes: No Flooding, Low, Medium, High.
+Endpoint: POST /predict
+Response Example:
+{
+  "severity": "Medium Severity",
+  "confidence_score": 98.75
+}
+2. Geometric Route Exclusion
+Uses buffer-based spatial checks (route_line.distance(clog_point) < CLOG_BUFFER_DEGREES)
+Returns alternate route if any path intersects flooded regions.
+3. Asynchronous Workflow
+Async calls using httpx ensure no API blocking.
+Performance = optimized concurrency.
+📈 API Highlights
+Flood Prediction
+curl -X POST http://127.0.0.1:8080/predict -F "file=@sample.jpg"
+# → {"severity": "High Severity", "confidence_score": 96.22}
+Safe Route Calculation
+POST /api/safe-route
+{
+  "origin": "Raipur Railway Station",
+  "destination": "Swami Vivekananda Airport Raipur"
+}
+# → {"status": "SAFE_ROUTE_FOUND", "message": "Safe route found via Ring Road No. 3"}

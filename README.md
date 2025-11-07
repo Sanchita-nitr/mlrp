@@ -82,15 +82,14 @@ GOOGLE_MAPS_API_KEY="your_google_maps_api_key_here"
 ---
 
 ### ⚙️ Setup Order: **Synergy First!**
-
-#### 1️⃣ Clone the Repo & Setup Virtual Environment
+1️⃣ Clone the Repo & Setup Virtual Environment
 ```bash
 git clone [repository-link]
 cd JalTantra
 python -m venv venv
 source venv/bin/activate
 
-#### 2️⃣ Install Dependencies
+ 2️⃣ Install Dependencies
 
 - **Core deep learning stack:**  
   `pip install torch torchvision torchaudio`
